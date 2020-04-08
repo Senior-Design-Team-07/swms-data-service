@@ -28,8 +28,12 @@ const serviceAccount = {
 };
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: 'https://cue-app-dev.firebaseio.com',
+    databaseURL: 'https://smart-water-monitoring-s-1211d.firebaseio.com/',
+    databaseAuthVariableOverride: {
+      uid: "swms-service-worker"
+    },
 });
+const db = admin.database();
 
 const PORT = process.env.PORT || 5000;
 
@@ -41,6 +45,10 @@ app.use(cors());
  * TEST ENDPOINTS
  * ---------------------------------------------------------------------- */
 
+const _handleDbError = (res, error) => {
+    res.status(400).send(error.message);
+};
+
 app.get('/', (req, res) => {
     res.sendStatus(200);
 });
@@ -51,6 +59,17 @@ app.get('/test', (req, res) => {
 
 app.post('/test', (req, res) => {
     res.status(200).send('POST request to /test');
+});
+
+app.get('/testFirebaseWrite', (req, res) => {
+    db.ref('test').child('test')
+        .set(Date.now(), (error) => {
+            if (error) {
+                _handleDbError(res, error);
+            } else {
+                res.status(200).send('Databse write successful');
+            }
+        });
 });
 
 /** ----------------------------------------------------------------------
