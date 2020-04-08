@@ -58,10 +58,18 @@ app.get('/test', (req, res) => {
 });
 
 app.post('/test', (req, res) => {
+
     res.status(200).send('POST request to /test');
 });
 
-app.get('/testFirebaseWrite', (req, res) => {
+app.post('/test/postData', (req, res) => {
+    const testData = req.body.testData || null;
+
+    res.status(200).send(`Data Recieved: ${testData || 'No Data'}`);
+});
+
+
+app.get('/test/firebaseWrite', (req, res) => {
     db.ref('test').child('test')
         .set(Date.now(), (error) => {
             if (error) {

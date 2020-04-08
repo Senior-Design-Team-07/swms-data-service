@@ -1,39 +1,46 @@
-# node-js-getting-started
+# Smart Water Monitoring System (SWMS) Data Service
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+A service that receives data from the ESP8266 module and publishes it to Firebase.
 
-This application supports the [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+[View on Heroku Dashboard](https://dashboard.heroku.com/apps/swms-data-service)
 
 ## Running Locally
 
 Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
 
 ```sh
-$ git clone https://github.com/heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
+$ rm -rf node_modules; npm install --production
+$ heroku local web
 ```
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
 ## Deploying to Heroku
 
+```sh
+$ git add .
+$ git commit -m "message"
+$ git push origin master
 ```
-$ heroku create
-$ git push heroku master
-$ heroku open
+
+Heroku is configured to automatically deploy the latest version of master from this git repo.
+
+## Available Endpoints
+
+* `/test`
+```sh
+$ curl -X GET https://swms-data-service.herokuapp.com/test
 ```
-or
+```sh
+$ curl -X POST https://swms-data-service.herokuapp.com/test
+```
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+* `/test/postData`
+```sh
+$ curl -X POST https://swms-data-service.herokuapp.com/test/postData -H "Content-type: application/x-www-form-urlencoded" -d "testData=100" 
+```
 
-## Documentation
-
-For more information about using Node.js on Heroku, see these Dev Center articles:
-
-- [Getting Started on Heroku with Node.js](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+* `/test/firebaseWrite`
+```sh
+$ curl -X POST https://swms-data-service.herokuapp.com/test/firebaseWrite
+```
