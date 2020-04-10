@@ -54,18 +54,18 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
-    res.status(200).send('GET request to /test');
+    res.status(200).send('GET request to /test\n\n');
 });
 
 app.post('/test', (req, res) => {
 
-    res.status(200).send('POST request to /test');
+    res.status(200).send('POST request to /test\n\n');
 });
 
 app.post('/test/postData', (req, res) => {
     const testData = req.body.testData || null;
 
-    res.status(200).send(`Data Recieved: ${testData || 'No Data'}`);
+    res.status(200).send(`Data Recieved: ${testData || 'No Data'}\n\n`);
 });
 
 
@@ -75,7 +75,7 @@ app.put('/test/firebaseWrite', (req, res) => {
             if (error) {
                 _handleDbError(res, error);
             } else {
-                res.status(200).send('Databse write successful');
+                res.status(200).send(`Databse write successful.\nTimestamp: ${Date.now()}\n\n`);
             }
         });
 });
