@@ -69,7 +69,7 @@ app.post('/test/postData', (req, res) => {
 });
 
 
-app.get('/test/firebaseWrite', (req, res) => {
+app.put('/test/firebaseWrite', (req, res) => {
     db.ref('test').child('timestamp')
         .set(Date.now(), (error) => {
             if (error) {

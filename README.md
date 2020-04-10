@@ -37,10 +37,10 @@ $ curl -X POST https://swms-data-service.herokuapp.com/test
 
 * `/test/postData`
 ```sh
-$ curl -X POST https://swms-data-service.herokuapp.com/test/postData -H "Content-type: application/x-www-form-urlencoded" -d "testData=100" 
+$ curl -X POST https://swms-data-service.herokuapp.com/test/postData -H "Content-type: application/x-www-form-urlencoded" -d "testData=100"
 ```
 
 * `/test/firebaseWrite`
 ```sh
-$ curl -X POST https://swms-data-service.herokuapp.com/test/firebaseWrite
+$ curl -X PUT https://swms-data-service.herokuapp.com/test/firebaseWrite
 ```
