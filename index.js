@@ -70,12 +70,13 @@ app.post('/test/postData', (req, res) => {
 
 
 app.put('/test/firebaseWrite', (req, res) => {
+    const timestamp = Date.now();
     db.ref('test').child('timestamp')
-        .set(Date.now(), (error) => {
+        .set(timestamp, (error) => {
             if (error) {
                 _handleDbError(res, error);
             } else {
-                res.status(200).send(`Databse write successful.\nTimestamp: ${Date.now()}\n\n`);
+                res.status(200).send(`Databse write successful.\nTimestamp: ${timestamp}\n\n`);
             }
         });
 });
