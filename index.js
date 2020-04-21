@@ -64,8 +64,18 @@ app.post('/test', (req, res) => {
 
 app.post('/test/postData', (req, res) => {
     const testData = req.body.testData || null;
-
-    res.status(200).send(`Data Recieved: ${testData || 'No Data'}\n\n`);
+    if (testData) {
+        db.ref('test').child('testData')
+            .set(testData, (error) => {
+                if (error) {
+                    _handleDbError(res, error);
+                } else {
+                    res.status(200).send(`Data Recieved: ${testData || 'No Data'}\n\n`);
+                }
+            });
+    } else {
+        res.status(400).send('No data recieved.');
+    }
 });
 
 
