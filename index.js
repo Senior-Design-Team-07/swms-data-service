@@ -54,16 +54,19 @@ app.get('/', (req, res) => {
 });
 
 app.get('/test', (req, res) => {
+    console.log('GET request to /test')
     res.status(200).send('GET request to /test\n\n');
 });
 
 app.post('/test', (req, res) => {
-
+    console.log('POST request to /test')
     res.status(200).send('POST request to /test\n\n');
 });
 
 app.post('/test/postData', (req, res) => {
     const testData = req.body.testData || null;
+    console.log(`POST request to /test/postData; Data Recieved: ${testData || 'No Data'}`)
+
     if (testData) {
         db.ref('test').child('testData')
             .set(testData, (error) => {
@@ -81,6 +84,8 @@ app.post('/test/postData', (req, res) => {
 
 app.put('/test/firebaseWrite', (req, res) => {
     const timestamp = Date.now();
+    console.log(`PUT request to /test/firebaseWrite; Timestamp: ${timestamp}`)
+
     db.ref('test').child('timestamp')
         .set(timestamp, (error) => {
             if (error) {
