@@ -64,7 +64,7 @@ app.post('/test', (req, res) => {
 });
 
 app.post('/test/postData', (req, res) => {
-    const testData = req.body.testData || null;
+    const testData = req.body.testData ? parseFloat(req.body.testData) : null;
     console.log(`POST request to /test/postData; Data Recieved: ${testData || 'No Data'}`)
 
     if (testData) {
