@@ -44,3 +44,8 @@ $ curl -X POST https://swms-data-service.herokuapp.com/test/postData -H "Content
 ```sh
 $ curl -X PUT https://swms-data-service.herokuapp.com/test/firebaseWrite
 ```
+
+* `/test/postData`
+```sh
+$ curl -X POST https://swms-data-service.herokuapp.com/logUsage -H "Content-type: application/x-www-form-urlencoded" -d "duration=100" -d "flowRate=0.25"
+```

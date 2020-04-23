@@ -99,4 +99,25 @@ app.put('/test/firebaseWrite', (req, res) => {
 /** ----------------------------------------------------------------------
  * Start App
  * ---------------------------------------------------------------------- */
+
+ app.post('/logUsage', (req, res) => {
+     const timestamp = Date.now();
+     const duration = req.body.duration ? parseFloat(req.body.duration) : null;
+     const flowRate = req.body.flowRate ? parseFloat(req.body.flowRate) : null;
+     console.log(`POST request to /logusage; Data Recieved: { duration: ${duration || 'No Data'}, flowRate: ${flowRate || 'No Data'}}`)
+
+    db.ref('data').push().set({
+        duration,
+        flowRate,
+        timestamp,
+    },
+    (error) => {
+        if (error) {
+            _handleDbError(res, error);
+        } else {
+            res.status(200).send(`Databse write successful.\nTimestamp: ${timestamp}\nDuration: ${duration}\nFlowRate: ${flowRate}\n\n`);
+        }
+    });
+ });
+
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
