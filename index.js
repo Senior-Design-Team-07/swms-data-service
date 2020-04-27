@@ -101,20 +101,19 @@ app.put('/test/firebaseWrite', (req, res) => {
  * ---------------------------------------------------------------------- */
 
  app.post('/logUsage', (req, res) => {
-     // Get Time Objects
-     const dateObj = new Date();
-     const timestamp = dateObj.getTime();
-     const date = dateObj.setHours(0,0,0,0);
+    // Get Time Objects
+    const dateObj = new Date();
+    const timestamp = dateObj.getTime();
+    const date = dateObj.setHours(0,0,0,0);
 
-     // Get Parameters
-     const duration = req.body.duration ? parseFloat(req.body.duration) : null;
-     const flowRate = req.body.flowRate ? parseFloat(req.body.flowRate) : null;
-     console.log(`POST request to /logusage; Data Recieved: { duration: ${duration || 'No Data'}, flowRate: ${flowRate || 'No Data'}}`)
+    // Get Parameters
+    const duration = req.body.duration ? parseFloat(req.body.duration) : null;
+    const flowRate = req.body.flowRate ? parseFloat(req.body.flowRate) : null;
+    console.log(`POST request to /logusage; Data Recieved: { duration: ${duration || 'No Data'}, flowRate: ${flowRate || 'No Data'}}`)
 
-    db.ref('data').child(date).push().set({
+    db.ref(`data/${date}`).child(timestamp).update({
         duration,
         flowRate,
-        timestamp,
     },
     (error) => {
         if (error) {
