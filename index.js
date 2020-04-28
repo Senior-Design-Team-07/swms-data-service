@@ -104,14 +104,13 @@ app.put('/test/firebaseWrite', (req, res) => {
     // Get Time Objects
     const dateObj = new Date();
     const timestamp = dateObj.getTime();
-    const date = dateObj.setHours(0,0,0,0);
 
     // Get Parameters
     const duration = req.body.duration ? parseFloat(req.body.duration) : null;
     const flowRate = req.body.flowRate ? parseFloat(req.body.flowRate) : null;
     console.log(`POST request to /logusage; Data Recieved: { duration: ${duration || 'No Data'}, flowRate: ${flowRate || 'No Data'}}`)
 
-    db.ref(`data/${date}`).child(timestamp).update({
+    db.ref('data').child(timestamp).update({
         duration,
         flowRate,
     },
@@ -119,7 +118,7 @@ app.put('/test/firebaseWrite', (req, res) => {
         if (error) {
             _handleDbError(res, error);
         } else {
-            res.status(200).send(`Database write successful.\nDate: ${date}\nTimestamp: ${timestamp}\nDuration: ${duration}\nFlowRate: ${flowRate}\n\n`);
+            res.status(200).send(`Database write successful.\nTimestamp: ${timestamp}\nDuration: ${duration}\nFlowRate: ${flowRate}\n\n`);
         }
     });
  });
